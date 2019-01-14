@@ -41,11 +41,11 @@ class Group(BaseModel):
     group_name = CharField(unique=False)
     member = ForeignKeyField(User, on_delete='CASCADE')
 
-class Server(BaseModel):
+class Server_connect(BaseModel):
     user = ForeignKeyField(User, on_delete='CASCADE')
     server_ip = CharField(unique=False)
     instance_id = CharField(unique=False)
 
 if __name__ == '__main__':
     db.connect()
-    db.create_tables([User, Invitation, Friend, Post, Follow, Token, Group, Server])
+    db.create_tables([User, Invitation, Friend, Post, Follow, Token, Group, Server_connect])
