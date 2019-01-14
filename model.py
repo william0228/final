@@ -1,7 +1,7 @@
 from peewee import *
 
 
-db = MySQLDatabase('wangsy', user='wangsy', password='13470303',host='wangsy.cd4ysiffzsz0.us-east-2.rds.amazonaws.com', port=3306)
+db = MySQLDatabase('wangsy1', user='wangsy1', password='13470303',host='wangsy1.cd4ysiffzsz0.us-east-2.rds.amazonaws.com', port=3306)
 
 class BaseModel(Model):
     class Meta:
