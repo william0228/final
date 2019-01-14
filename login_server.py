@@ -20,8 +20,7 @@ def Create_instance():
         SecurityGroupIds=['launch-wizard-2'],
         MinCount = 1,
         MaxCount = 1,
-        InstanceType = 't2.micro',
-        KeyName='MyKeyPair.pem'
+        InstanceType = 't2.micro'
     )
     instance[0].wait_until_running()
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
