@@ -48,7 +48,7 @@ class Client(object):
                         command = cmd.split()
                         # which server we need to go to
                         # with command register/login/logout/delete in login_server
-                        if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete")):
+                        if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete") or (command[1] not in self.cookie) or (self.cookie[command[1]] == "")):
                             s.connect(self.ip, self.port)
                         # with other command in app_server
                         else :
