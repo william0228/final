@@ -139,25 +139,23 @@ class DBControl(object):
             else:
                 server_ip = query_server[0].server_ip
                 instance_id = query_server[0].instance_id
-                print(server_ip)
-                print(instance_id)
-                record = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
-                if record:
-                    return {
-                        'status': 0,
-                        'token': t.token,
-                        'message': 'Success!',
-                        'login_group': arr,
-                        'user': username,
-                        'server': res2.server_ip
-                    }
-                else:
-                    return {
-                        'status': 1,
-                        'message': 'login assign server failed due to unknown reason'
-                    }
-            
-            
+            print(server_ip)
+            print(instance_id)
+            record = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
+            if record:
+                return {
+                    'status': 0,
+                    'token': t.token,
+                    'message': 'Success!',
+                    'login_group': arr,
+                    'user': username,
+                    'server': res2.server_ip
+                }
+            else:
+                return {
+                    'status': 1,
+                    'message': 'login assign server failed due to unknown reason'
+                }
         else:
             return {
                 'status': 1,
