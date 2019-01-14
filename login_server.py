@@ -142,8 +142,8 @@ class DBControl(object):
                 if res3:
                     server_ip, instance_id = Create_instance()
                 else:
-                    server_ip = res3[0].server_ip
-                    instance_id = res3[0].instance_id
+                    server_ip = res3.server_ip
+                    instance_id = res3.instance_id
 
                 res4 = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
                 if res4:
