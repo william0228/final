@@ -86,7 +86,10 @@ class DBControl(object):
         for i in res:
             arr.append(i.group_name)
         
-        res1 = Server_connect.get_or_none(Server_connect.user == token.owner)
+        find_ip = Server_connect.get_or_none(Server_connect.user == token.owner)
+        query_server = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == find_ip.server_ip).having(fn.Count(Server_connect.user) < 2)
+        if (len(query_server) > 0):
+            ec2.instances.filter(InstanceIds=[query_server[0].instance_id]).terminate()
         
         token.owner.delete_instance()
         return {
@@ -113,7 +116,44 @@ class DBControl(object):
                 arr.append(i.group_name)
             
             res2 = Server_connect.get_or_none(Server_connect.user == t.owner)
+            if res2:
+                return {
+                    'status': 0,
+                    'token': t.token,
+                    'message': 'Success!',
+                    'login_group': arr,
+                    'user': username,
+                    'server': res2.server_ip
+                }
+                    
+            instance_id = ""
+            server_ip = ""
 
+            query_server = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
+            if (len(query_server) == 0):
+                server_ip, instance_id = createInstance()
+            else:
+                server_ip = query_server[0].server_ip
+                instance_id = query_server[0].instance_id
+                print(server_ip)
+                print(instance_id)
+                record = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
+                if record:
+                    return {
+                        'status': 0,
+                        'token': t.token,
+                        'message': 'Success!',
+                        'login_group': arr,
+                        'user': username,
+                        'server': res2.server_ip
+                    }
+                else:
+                    return {
+                        'status': 1,
+                        'message': 'login assign server failed due to unknown reason'
+                    }
+            
+            
         else:
             return {
                 'status': 1,
@@ -132,6 +172,14 @@ class DBControl(object):
         arr = []
         for i in res:
             arr.append(i.group_name)
+        
+        find_ip = Server_connect.get_or_none(Server_connect.user == token.owner)
+        query_server = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == find_ip.server_ip).having(fn.Count(Server_connect.user) < 2)
+        if (len(query_server) > 0):
+            ec2.instances.filter(InstanceIds=[query_server[0].instance_id]).terminate()
+        
+        change = Server_connect.get(user=token.owner)
+        change.delete_instance()
         
         token.delete_instance()
         return {
