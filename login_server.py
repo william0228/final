@@ -6,10 +6,24 @@ import json
 import uuid
 import time
 import stomp
+import boto3
 
 conn_mq = stomp.Connection()
 conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
+
+ec2 = boto3.resource('ec3', region_name='us-east-2c')
+
+def Create_instance():
+    instance = ec2.create_instances(
+        ImageId = 'ami-0bb4c03e5d990c0ce',
+        SecurityGroupIds=['launch-wizard-2'],
+        MinCount = 1,
+        MaxCount = 1,
+        InstanceType = 't2.micro',
+        KeyName='MyKeyPair'
+    )
+
 
 class DBControl(object):
     def __auth(func):
@@ -71,7 +85,12 @@ class DBControl(object):
         arr = []
         for i in res:
             arr.append(i.group_name)
-
+        
+        find_ip = Server.get_or_none(Server.user == token.owner)
+        query_server = Server.select(Server.server_ip, Server.instance_id).where(Server.server_ip == find_ip.server_ip).having(fn.Count(Server.user) < 2)
+        if (len(query_server) > 0):
+            ec2.instances.filter(InstanceIds=[query_server[0].instance_id]).terminate()
+        
         token.owner.delete_instance()
         return {
             'status': 0,
@@ -94,14 +113,47 @@ class DBControl(object):
             res1 = Group.select(Group.group_name).where(Group.member == t.owner)
             arr = []
             for i in res1:
-                arr.append(i.group_name)            
-            return {
-                'status': 0,
-                'token': t.token,
-                'message': 'Success!',
-                'login_group': arr,
-                'user': username
-            }
+                arr.append(i.group_name)
+            
+            res2 = Server.get_or_none(Server.user == t.owner)
+            if res2:
+                return {
+                    'status': 0,
+                    'token': t.token,
+                    'message': 'Success!',
+                    'login_group': arr,
+                    'user': username,
+                    'server': res2.server_ip
+                }
+                    
+            instance_id = ""
+            server_ip = ""
+
+            query_server = Server.select(Server.server_ip, Server.instance_id).group_by(Server.server_ip).having(fn.Count(Server.user) < 10)
+            if (len(query_server) == 0):
+                server_ip, instance_id = createInstance()
+            else:
+                server_ip = query_server[0].server_ip
+                instance_id = query_server[0].instance_id
+                print(server_ip)
+                print(instance_id)
+                record = Server.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
+                if record:
+                    return {
+                        'status': 0,
+                        'token': t.token,
+                        'message': 'Success!',
+                        'login_group': arr,
+                        'user': username,
+                        'server': res2.server_ip
+                    }
+                else:
+                    return {
+                        'status': 1,
+                        'message': 'login assign server failed due to unknown reason'
+                    }
+            
+            
         else:
             return {
                 'status': 1,
@@ -120,7 +172,15 @@ class DBControl(object):
         arr = []
         for i in res:
             arr.append(i.group_name)
-
+        
+        find_ip = Server.get_or_none(Server.user == token.owner)
+        query_server = Server.select(Server.server_ip, Server.instance_id).where(Server.server_ip == find_ip.server_ip).having(fn.Count(Server.user) < 2)
+        if (len(query_server) > 0):
+            ec2.instances.filter(InstanceIds=[query_server[0].instance_id]).terminate()
+        
+        change = Server.get(user=token.owner)
+        change.delete_instance()
+        
         token.delete_instance()
         return {
             'status': 0,
