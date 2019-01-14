@@ -131,7 +131,7 @@ class DBControl(object):
 
             query_server = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
             if (len(query_server) == 0):
-                server_ip, instance_id = createInstance()
+                server_ip, instance_id = Create_instance()
             else:
                 server_ip = query_server[0].server_ip
                 instance_id = query_server[0].instance_id
