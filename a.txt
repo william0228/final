@@ -26,31 +26,3 @@ DeMo_user12 is already used
 Usage: register <username> <password>
 Usage: register <username> <password>
 Usage: register <username> <password>
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
-Not login yet
