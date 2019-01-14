@@ -12,7 +12,7 @@ conn_mq = stomp.Connection()
 conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
 
-ec2 = boto3.resource('ec2', region_name='us-east-2c')
+ec2 = boto3.resource('ec2', region_name='us-east-2')
 
 def Create_instance():
     instance = ec2.create_instances(
