@@ -1,0 +1,32 @@
+Success!
+Success!
+Success!
+Success!
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Usage: send-group <user> <group> <message>
+No such group exist
+No such group exist
+Success!
+You are not the member of hw4_g2
+You are not the member of hw4_g3
+Success!
+You are not the member of hw4_g1
+Success!
+Success!
+You are not the member of hw4_g4
+You are not the member of hw4_g1
+Success!
+Success!
+You are not the member of hw4_g4
+Success!
+You are not the member of hw4_g2
+You are not the member of hw4_g3
+Success!
+Bye!
+Bye!
+Bye!
+Bye!

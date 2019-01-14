@@ -1,0 +1,80 @@
+create-group test_hw4_user1 hw4_group
+register test_hw4_user1 test_hw4_1
+register test_hw4_user2 test_hw4_2
+register test_hw4_user3 test_hw4_3
+register test_hw4_user4 test_hw4_4
+login test_hw4_user1 test_hw4_1
+login test_hw4_user2 test_hw4_2
+login test_hw4_user3 test_hw4_3
+login test_hw4_user4 test_hw4_4
+create-group
+create-group a
+create-group a a
+create-group test_hw4_user1
+create-group test_hw4_user1 a a
+create-group test_hw4_user1 hw4_g1
+create-group test_hw4_user2 hw4_g2
+create-group test_hw4_user3 hw4_g3
+create-group test_hw4_user4 hw4_g4
+create-group test_hw4_user1 hw4_g1
+create-group test_hw4_user2 hw4_g2
+create-group test_hw4_user3 hw4_g3
+create-group test_hw4_user4 hw4_g4
+create-group test_hw4_user1 hw4_g4
+create-group test_hw4_user2 hw4_g3
+create-group test_hw4_user3 hw4_g2
+create-group test_hw4_user4 hw4_g1
+list-group
+list-group a
+list-group a a
+list-group test_hw4_user1
+list-group
+list-group test_hw4_user2
+list-group
+list-group test_hw4_user3
+list-group
+list-group test_hw4_user4
+list-group test_hw4_user1 abc
+join-group
+join-group a
+join-group a a
+join-group test_hw4_user1 a
+join-group test_hw4_user1 a a
+join-group test_hw4_user1 hw4_g1
+join-group test_hw4_user2 hw4_g2
+join-group test_hw4_user3 hw4_g3
+join-group test_hw4_user4 hw4_g4
+join-group test_hw4_user1 hw4_g1
+join-group test_hw4_user2 hw4_g2
+join-group test_hw4_user3 hw4_g3
+join-group test_hw4_user4 hw4_g4
+join-group test_hw4_user1 hw4_g4
+join-group test_hw4_user2 hw4_g3
+join-group test_hw4_user3 hw4_g2
+join-group test_hw4_user4 hw4_g1
+join-group test_hw4_user1 hw4_g4
+join-group test_hw4_user2 hw4_g3
+join-group test_hw4_user3 hw4_g2
+join-group test_hw4_user4 hw4_g1
+register tmp_user tmp_user
+login tmp_user tmp_user
+list-group tmp_user
+list-joined tmp_user
+list-joined test_hw4_user1
+list-joined tmp_user
+list-joined test_hw4_user2
+list-joined tmp_user
+list-joined test_hw4_user3
+list-joined tmp_user
+list-joined test_hw4_user4
+list-joined
+list-joined a
+list-joined a a
+list-joined a a a
+list-joined test_hw4_user1 a
+logout tmp_user
+logout test_hw4_user1
+logout test_hw4_user2
+logout test_hw4_user3
+logout test_hw4_user4
+exit

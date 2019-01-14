@@ -1,0 +1,98 @@
+Not login yet
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Not login yet
+Not login yet
+Not login yet
+Usage: create-group <user> <group>
+Usage: create-group <user> <group>
+Success!
+Success!
+Success!
+Success!
+hw4_g1 already exist
+hw4_g2 already exist
+hw4_g3 already exist
+hw4_g4 already exist
+hw4_g4 already exist
+hw4_g3 already exist
+hw4_g2 already exist
+hw4_g1 already exist
+Not login yet
+Not login yet
+Not login yet
+hw4_g1
+hw4_g2
+hw4_g3
+hw4_g4
+Not login yet
+hw4_g1
+hw4_g2
+hw4_g3
+hw4_g4
+Not login yet
+hw4_g1
+hw4_g2
+hw4_g3
+hw4_g4
+Not login yet
+hw4_g1
+hw4_g2
+hw4_g3
+hw4_g4
+Usage: list-group <user>
+Not login yet
+Not login yet
+Not login yet
+a does not exist
+Usage: join-group <user> <group>
+Already a member of hw4_g1
+Already a member of hw4_g2
+Already a member of hw4_g3
+Already a member of hw4_g4
+Already a member of hw4_g1
+Already a member of hw4_g2
+Already a member of hw4_g3
+Already a member of hw4_g4
+Success!
+Success!
+Success!
+Success!
+Already a member of hw4_g4
+Already a member of hw4_g3
+Already a member of hw4_g2
+Already a member of hw4_g1
+Success!
+Success!
+hw4_g1
+hw4_g2
+hw4_g3
+hw4_g4
+No groups
+hw4_g1
+hw4_g4
+No groups
+hw4_g2
+hw4_g3
+No groups
+hw4_g3
+hw4_g2
+No groups
+hw4_g4
+hw4_g1
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Usage: list-joined <user>
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!

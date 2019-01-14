@@ -1,0 +1,33 @@
+login test_hw4_user1 test_hw4_1
+login test_hw4_user2 test_hw4_2
+login test_hw4_user3 test_hw4_3
+login test_hw4_user4 test_hw4_4
+send-group
+send-group a
+send-group a a
+send-group a a a
+send-group a a a a
+send-group test_hw4_user1 abcd
+send-group test_hw4_user1 abcd gggggg
+send-group test_hw4_user1 abcd gggggg gggg
+send-group test_hw4_user1 hw4_g1 Hi Everyone
+send-group test_hw4_user1 hw4_g2 Hi Everyone
+send-group test_hw4_user1 hw4_g3 Hi Everyone
+send-group test_hw4_user1 hw4_g4 Hi Everyone
+send-group test_hw4_user2 hw4_g1 Hi Everyone
+send-group test_hw4_user2 hw4_g2 Hi Everyone
+send-group test_hw4_user2 hw4_g3 Hi Everyone
+send-group test_hw4_user2 hw4_g4 Hi Everyone
+send-group test_hw4_user3 hw4_g1 Hi Everyone
+send-group test_hw4_user3 hw4_g2 Hi Everyone
+send-group test_hw4_user3 hw4_g3 Hi Everyone
+send-group test_hw4_user3 hw4_g4 Hi Everyone
+send-group test_hw4_user4 hw4_g1 Hi Everyone
+send-group test_hw4_user4 hw4_g2 Hi Everyone
+send-group test_hw4_user4 hw4_g3 Hi Everyone
+send-group test_hw4_user4 hw4_g4 Hi Everyone
+logout test_hw4_user1
+logout test_hw4_user2
+logout test_hw4_user3
+logout test_hw4_user4
+exit

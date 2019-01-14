@@ -1,0 +1,42 @@
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Usage: send <user> <friend> <message>
+No such user exist
+No such user exist
+Success!
+test_hw4_user3 is not your friend
+Success!
+Success!
+Success!
+test_hw4_user4 is not your friend
+test_hw4_user1 is not your friend
+Success!
+Success!
+Success!
+test_hw4_user2 is not your friend
+Success!
+Bye!
+Bye!
+test_hw4_user2 is not online
+test_hw4_user3 is not your friend
+Success!
+Success!
+test_hw4_user2 is not your friend
+test_hw4_user3 is not online
+Bye!
+Bye!

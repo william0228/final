@@ -1,0 +1,314 @@
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+FAKE_USER does not exist
+Usage: invite <user> <id>
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+You cannot invite yourself
+DeMo_user1 has invited you
+Already invited
+Already invited
+Already invited
+Already invited
+Already invited
+Already invited
+Already invited
+Already invited
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Usage: list-invite <user>
+DeMo_user10
+DeMo_user1
+DeMo_user2
+No invitations
+DeMo_user3
+No invitations
+DeMo_user5
+DeMo_user7
+DeMo_user8
+DeMo_user9
+DeMo_user9
+DeMo_user8
+DeMo_user7
+DeMo_user5
+No invitations
+DeMo_user3
+No invitations
+DeMo_user2
+DeMo_user1
+DeMo_user10
+Not login yet
+Not login yet
+Not login yet
+Usage: accept-invite <user> <id>
+a did not invite you
+Success!
+Success!
+Success!
+DeMo_user3 did not invite you
+DeMo_user4 did not invite you
+DeMo_user5 did not invite you
+DeMo_user6 did not invite you
+Success!
+Success!
+Success!
+DeMo_user10 did not invite you
+DeMo_user1 did not invite you
+DeMo_user2 did not invite you
+DeMo_user3 did not invite you
+DeMo_user4 did not invite you
+DeMo_user5 did not invite you
+DeMo_user6 did not invite you
+DeMo_user7 did not invite you
+DeMo_user8 did not invite you
+DeMo_user9 did not invite you
+DeMo_user2 is already your friend
+DeMo_user3 is already your friend
+Already invited
+Already invited
+DeMo_user8 is already your friend
+DeMo_user9 is already your friend
+DeMo_user10 is already your friend
+No invitations
+No invitations
+No invitations
+No invitations
+DeMo_user3
+No invitations
+DeMo_user5
+No invitations
+No invitations
+No invitations
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Usage: list-friend <user>
+DeMo_user10
+DeMo_user2
+Success!
+DeMo_user1
+DeMo_user3
+Success!
+DeMo_user2
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+DeMo_user8
+Success!
+DeMo_user7
+DeMo_user9
+Success!
+DeMo_user8
+DeMo_user10
+Success!
+DeMo_user9
+DeMo_user1
+Success!
+DeMo_user9
+DeMo_user1
+Success!
+DeMo_user8
+DeMo_user10
+Success!
+DeMo_user7
+DeMo_user9
+Success!
+DeMo_user8
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+DeMo_user2
+Success!
+DeMo_user1
+DeMo_user3
+Success!
+DeMo_user10
+DeMo_user2
+Not login yet
+Not login yet
+Not login yet
+Usage: post <user> <message>
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Success!
+Not login yet
+Not login yet
+Not login yet
+Not login yet
+Usage: receive-post <user>
+DeMo_user10: HI, I AM USER10.
+DeMo_user10: WELCOME TO HAPPY PROJECT 3! USER9, USER1
+DeMo_user2: HI, I AM USER2.
+DeMo_user2: WELCOME TO HAPPY PROJECT 3! USER1, USER3
+Success!
+DeMo_user1: HI, I AM USER1.
+DeMo_user1: WELCOME TO HAPPY PROJECT 3! USER10, USER2
+DeMo_user3: HI, I AM USER3.
+DeMo_user3: WELCOME TO HAPPY PROJECT 3! USER2, USER4
+Success!
+DeMo_user2: HI, I AM USER2.
+DeMo_user2: WELCOME TO HAPPY PROJECT 3! USER1, USER3
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+DeMo_user8: HI, I AM USER8.
+DeMo_user8: WELCOME TO HAPPY PROJECT 3! USER7, USER9
+Success!
+DeMo_user7: HI, I AM USER7.
+DeMo_user7: WELCOME TO HAPPY PROJECT 3! USER6, USER8
+DeMo_user9: HI, I AM USER9.
+DeMo_user9: WELCOME TO HAPPY PROJECT 3! USER8, USER10
+Success!
+DeMo_user8: HI, I AM USER8.
+DeMo_user8: WELCOME TO HAPPY PROJECT 3! USER7, USER9
+DeMo_user10: HI, I AM USER10.
+DeMo_user10: WELCOME TO HAPPY PROJECT 3! USER9, USER1
+Success!
+DeMo_user9: HI, I AM USER9.
+DeMo_user9: WELCOME TO HAPPY PROJECT 3! USER8, USER10
+DeMo_user1: HI, I AM USER1.
+DeMo_user1: WELCOME TO HAPPY PROJECT 3! USER10, USER2
+Success!
+DeMo_user10: HI, I AM USER10.
+DeMo_user10: WELCOME TO HAPPY PROJECT 3! USER9, USER1
+DeMo_user2: HI, I AM USER2.
+DeMo_user2: WELCOME TO HAPPY PROJECT 3! USER1, USER3
+Success!
+DeMo_user1: HI, I AM USER1.
+DeMo_user1: WELCOME TO HAPPY PROJECT 3! USER10, USER2
+DeMo_user3: HI, I AM USER3.
+DeMo_user3: WELCOME TO HAPPY PROJECT 3! USER2, USER4
+Success!
+DeMo_user2: HI, I AM USER2.
+DeMo_user2: WELCOME TO HAPPY PROJECT 3! USER1, USER3
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+DeMo_user8: HI, I AM USER8.
+DeMo_user8: WELCOME TO HAPPY PROJECT 3! USER7, USER9
+Success!
+DeMo_user7: HI, I AM USER7.
+DeMo_user7: WELCOME TO HAPPY PROJECT 3! USER6, USER8
+DeMo_user9: HI, I AM USER9.
+DeMo_user9: WELCOME TO HAPPY PROJECT 3! USER8, USER10
+Success!
+DeMo_user8: HI, I AM USER8.
+DeMo_user8: WELCOME TO HAPPY PROJECT 3! USER7, USER9
+DeMo_user10: HI, I AM USER10.
+DeMo_user10: WELCOME TO HAPPY PROJECT 3! USER9, USER1
+Success!
+DeMo_user9: HI, I AM USER9.
+DeMo_user9: WELCOME TO HAPPY PROJECT 3! USER8, USER10
+DeMo_user1: HI, I AM USER1.
+DeMo_user1: WELCOME TO HAPPY PROJECT 3! USER10, USER2
+Success!
+DeMo_user9: HI, I AM USER9.
+DeMo_user9: WELCOME TO HAPPY PROJECT 3! USER8, USER10
+DeMo_user1: HI, I AM USER1.
+DeMo_user1: WELCOME TO HAPPY PROJECT 3! USER10, USER2
+Success!
+DeMo_user8: HI, I AM USER8.
+DeMo_user8: WELCOME TO HAPPY PROJECT 3! USER7, USER9
+DeMo_user10: HI, I AM USER10.
+DeMo_user10: WELCOME TO HAPPY PROJECT 3! USER9, USER1
+Success!
+DeMo_user7: HI, I AM USER7.
+DeMo_user7: WELCOME TO HAPPY PROJECT 3! USER6, USER8
+DeMo_user9: HI, I AM USER9.
+DeMo_user9: WELCOME TO HAPPY PROJECT 3! USER8, USER10
+Success!
+DeMo_user8: HI, I AM USER8.
+DeMo_user8: WELCOME TO HAPPY PROJECT 3! USER7, USER9
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+DeMo_user2: HI, I AM USER2.
+DeMo_user2: WELCOME TO HAPPY PROJECT 3! USER1, USER3
+Success!
+DeMo_user1: HI, I AM USER1.
+DeMo_user1: WELCOME TO HAPPY PROJECT 3! USER10, USER2
+DeMo_user3: HI, I AM USER3.
+DeMo_user3: WELCOME TO HAPPY PROJECT 3! USER2, USER4
+Success!
+DeMo_user10: HI, I AM USER10.
+DeMo_user10: WELCOME TO HAPPY PROJECT 3! USER9, USER1
+DeMo_user2: HI, I AM USER2.
+DeMo_user2: WELCOME TO HAPPY PROJECT 3! USER1, USER3
+Not login yet
+Not login yet
+Not login yet
+Unknown command reg
+Unknown command logi
+Unknown command receive-p
+Unknown command list-i
+Unknown command list-f
+Unknown command pos
+Unknown command accept
+Unknown command inv
+Unknown command logo
+Unknown command del
+Unknown command exi
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!

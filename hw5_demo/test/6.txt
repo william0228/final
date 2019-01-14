@@ -1,0 +1,43 @@
+login test_hw4_user1 test_hw4_1
+login test_hw4_user2 test_hw4_2
+login test_hw4_user3 test_hw4_3
+login test_hw4_user4 test_hw4_4
+invite test_hw4_user1 test_hw4_user2
+invite test_hw4_user2 test_hw4_user3
+invite test_hw4_user3 test_hw4_user4
+invite test_hw4_user4 test_hw4_user1
+accept-invite test_hw4_user2 test_hw4_user1
+accept-invite test_hw4_user3 test_hw4_user2
+accept-invite test_hw4_user4 test_hw4_user3
+accept-invite test_hw4_user1 test_hw4_user4
+send
+send a
+send a a
+send a a a
+send a a a a
+send test_hw4_user1 qwer
+send test_hw4_user1 qwer ggggg
+send test_hw4_user1 qwer ggggg gggg
+send test_hw4_user1 test_hw4_user2 Hi my friend user2
+send test_hw4_user1 test_hw4_user3 Hi my friend user3
+send test_hw4_user1 test_hw4_user4 Hi my friend user4
+send test_hw4_user2 test_hw4_user1 Hi my friend user1
+send test_hw4_user2 test_hw4_user3 Hi my friend user3
+send test_hw4_user2 test_hw4_user4 Hi my friend user4
+send test_hw4_user3 test_hw4_user1 Hi my friend user1
+send test_hw4_user3 test_hw4_user2 Hi my friend user2
+send test_hw4_user3 test_hw4_user4 Hi my friend user4
+send test_hw4_user4 test_hw4_user1 Hi my friend user1
+send test_hw4_user4 test_hw4_user2 Hi my friend user2
+send test_hw4_user4 test_hw4_user3 Hi my friend user3
+logout test_hw4_user2
+logout test_hw4_user3
+send test_hw4_user1 test_hw4_user2 Hi my friend user2
+send test_hw4_user1 test_hw4_user3 Hi my friend user3
+send test_hw4_user1 test_hw4_user4 Hi my friend user4
+send test_hw4_user4 test_hw4_user1 Hi my friend user1
+send test_hw4_user4 test_hw4_user2 Hi my friend user2
+send test_hw4_user4 test_hw4_user3 Hi my friend user3
+logout test_hw4_user1
+logout test_hw4_user4
+exit

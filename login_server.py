@@ -33,14 +33,6 @@ def Create_instance():
     pass
 
 
-def Terminate():
-    res1 = Server_connect.get_or_none(Server_connect.user == token.owner)
-    res2 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == res1.server_ip).having(fn.Count(Server_connect.user) < 2)
-    if (len(res2) > 0):
-        ec2.instances.filter(InstanceIds=[res2[0].instance_id]).terminate()
-    pass
-
-
 class DBControl(object):
     def __auth(func):
         def validate_token(self, token=None, *args):
@@ -102,7 +94,10 @@ class DBControl(object):
         for i in res:
             arr.append(i.group_name)
         
-        Terminate()
+        res1 = Server_connect.get_or_none(Server_connect.user == token.owner)
+        res2 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == res1.server_ip).having(fn.Count(Server_connect.user) < 2)
+        if (len(res2) > 0):
+            ec2.instances.filter(InstanceIds=[res2[0].instance_id]).terminate()
         
         token.owner.delete_instance()
         return {
@@ -144,7 +139,7 @@ class DBControl(object):
                 server_ip = ""
 
                 res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
-                if (len(res3) == 0):
+                if (len(res3[0]) == 0):
                     server_ip, instance_id = Create_instance()
                 else:
                     server_ip = res3[0].server_ip
@@ -185,7 +180,10 @@ class DBControl(object):
         for i in res:
             arr.append(i.group_name)
         
-        Terminate()
+        res1 = Server_connect.get_or_none(Server_connect.user == token.owner)
+        res2 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == res1.server_ip).having(fn.Count(Server_connect.user) < 2)
+        if (len(res2) > 0):
+            ec2.instances.filter(InstanceIds=[res2[0].instance_id]).terminate()
         
         change = Server_connect.get(user=token.owner)
         change.delete_instance()
