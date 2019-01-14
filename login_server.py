@@ -14,9 +14,8 @@ conn_mq.connect('admin', 'password', wait=True)
 
 ec2 = boto3.resource('ec2', region_name='us-east-2')
 user_data = '''#!/bin/bash
-    python3 /home/ubuntu/5/wang_model.py
-    python3 /home/ubuntu/5/server.py 0.0.0.0 8888
-    '''
+python3 /home/ubuntu/final/app_server.py 0.0.0.0 8888
+'''
 
 def Create_instance():
     instance = ec2.create_instances(

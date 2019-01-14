@@ -22,8 +22,8 @@ class Client(object):
             else:
                 raise Exception('Port value should between 1~65535')
             self.cookie = {}
-            
-            self.conn = stomp.Connection()
+            self.server = {}
+            self.conn = stomp.Connection([('18.188.225.125', 61613)])
             self.conn.set_listener('', MyListener())
             self.conn.start()
             self.conn.connect('admin', 'password', wait=True)
@@ -45,8 +45,8 @@ class Client(object):
                         command = cmd.split()
                         # which server we need to go to
                         # with command register/login/logout/delete in login_server
-                        if len(command) < 2:
-                            if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete") or (cookie[command[1]] == "")):
+                        if len(command) > 2:
+                            if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete") or (self.cookie[command[1]] == "")):
                                 s.connect((self.ip, self.port))
                             # with other command in app_server
                             else :
@@ -101,6 +101,12 @@ class Client(object):
                 if len(resp['login_group']) > 0:
                     for i in resp['login_group']:
                         self.conn.subscribe(destination="/topic/"+i, id=resp['token']+i, ack="auto")
+
+                if command[1] in self.server:
+                    if resp['server'] != self.server[command[1]]:
+                        self.server[command[1]] = resp['server']
+                    else:
+                        self.server[command[1]] = resp['server']
 
             elif resp['status'] == 0 and (command[0] == 'delete' or command[0] == 'logout'):
                 self.conn.unsubscribe(destination="/queue/"+str(resp['user']), id=command[1])
