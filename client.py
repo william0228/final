@@ -4,13 +4,13 @@ import socket
 import json
 import os
 import stomp
-import boto3
 
 class MyListener(stomp.ConnectionListener):
     def on_error(self, headers, message):
         print('received an error "%s"' % message)
     def on_message(self, headers, message):
         print(message)
+
 
 class Client(object):
     def __init__(self, ip, port):
@@ -22,7 +22,7 @@ class Client(object):
             else:
                 raise Exception('Port value should between 1~65535')
             self.cookie = {}
-            
+
             self.conn = stomp.Connection()
             self.conn.set_listener('', MyListener())
             self.conn.start()
