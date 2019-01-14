@@ -13,19 +13,32 @@ conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
 
 ec2 = boto3.resource('ec2', region_name='us-east-2')
+user_data = '''#!/bin/bash
+    python3 /home/ubuntu/5/wang_model.py
+    python3 /home/ubuntu/5/server.py 0.0.0.0 8888
+    '''
 
 def Create_instance():
     instance = ec2.create_instances(
         ImageId = 'ami-0bb4c03e5d990c0ce',
-        SecurityGroupIds=['launch-wizard-2'],
+        SecurityGroupIds = ['launch-wizard-2'],
         MinCount = 1,
         MaxCount = 1,
-        InstanceType = 't2.micro'
+        InstanceType = 't2.micro',
+        UserData = user_data
     )
     instance[0].wait_until_running()
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
     for i in instance_collection:
         return (i.public_ip_address, instance[0].instance_id)
+    pass
+
+
+def Terminate():
+    res1 = Server_connect.get_or_none(Server_connect.user == token.owner)
+    res2 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == res1.server_ip).having(fn.Count(Server_connect.user) < 2)
+    if (len(res2) > 0):
+        ec2.instances.filter(InstanceIds=[res2[0].instance_id]).terminate()
     pass
 
 
@@ -90,10 +103,7 @@ class DBControl(object):
         for i in res:
             arr.append(i.group_name)
         
-        find_ip = Server_connect.get_or_none(Server_connect.user == token.owner)
-        query_server = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == find_ip.server_ip).having(fn.Count(Server_connect.user) < 2)
-        if (len(query_server) > 0):
-            ec2.instances.filter(InstanceIds=[query_server[0].instance_id]).terminate()
+        Terminate()
         
         token.owner.delete_instance()
         return {
@@ -129,33 +139,34 @@ class DBControl(object):
                     'user': username,
                     'server': res2.server_ip
                 }
-                    
-            instance_id = ""
-            server_ip = ""
+        
+            else:
+                instance_id = ""
+                server_ip = ""
 
-            query_server = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
-            if (len(query_server) == 0):
-                server_ip, instance_id = Create_instance()
-            else:
-                server_ip = query_server[0].server_ip
-                instance_id = query_server[0].instance_id
-            # print(server_ip)
-            # print(instance_id)
-            record = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
-            if record:
-                return {
-                    'status': 0,
-                    'token': t.token,
-                    'message': 'Success!',
-                    'login_group': arr,
-                    'user': username,
-                    'server': res2.server_ip
-                }
-            else:
-                return {
-                    'status': 1,
-                    'message': 'login assign server failed due to unknown reason'
-                }
+                res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
+                if (len(res3) == 0):
+                    server_ip, instance_id = Create_instance()
+                else:
+                    server_ip = res3[0].server_ip
+                    instance_id = res3[0].instance_id
+
+                res4 = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
+                if res4:
+                    return {
+                        'status': 0,
+                        'token': t.token,
+                        'message': 'Success!',
+                        'login_group': arr,
+                        'user': username,
+                        'server': res2.server_ip
+                    }
+                else:
+                    return {
+                        'status': 1,
+                        'message': 'server failed'
+                    }
+                        
         else:
             return {
                 'status': 1,
@@ -175,10 +186,7 @@ class DBControl(object):
         for i in res:
             arr.append(i.group_name)
         
-        find_ip = Server_connect.get_or_none(Server_connect.user == token.owner)
-        query_server = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).where(Server_connect.server_ip == find_ip.server_ip).having(fn.Count(Server_connect.user) < 2)
-        if (len(query_server) > 0):
-            ec2.instances.filter(InstanceIds=[query_server[0].instance_id]).terminate()
+        Terminate()
         
         change = Server_connect.get(user=token.owner)
         change.delete_instance()

@@ -42,16 +42,17 @@ class Client(object):
                 try:
                     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                         
-                        
                         command = cmd.split()
                         # which server we need to go to
                         # with command register/login/logout/delete in login_server
-                        if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete")):
+                        if len(command) < 2:
+                            if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete") or (cookie[command[1]] == "")):
+                                s.connect((self.ip, self.port))
+                            # with other command in app_server
+                            else :
+                                s.connect((self.ip, 8000))
+                        else:
                             s.connect((self.ip, self.port))
-                        # with other command in app_server
-                        else :
-                            s.connect((self.ip, 8000))
-                        
                         
                         cmd = self.__attach_token(cmd)
                         s.send(cmd.encode())
