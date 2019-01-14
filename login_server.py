@@ -113,9 +113,7 @@ class DBControl(object):
                 arr.append(i.group_name)
             
             res2 = Server_connect.get_or_none(Server_connect.user == t.owner)
-            if res2:
-                
-            
+
         else:
             return {
                 'status': 1,
