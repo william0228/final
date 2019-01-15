@@ -33,9 +33,8 @@ def Create_instance():
     instance[0].wait_until_running()
     waiter.wait(InstanceIds=[instance[0].instance_id])
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
-    for i in instance_collection:
-        return (i.public_ip_address, instance[0].instance_id)
-    pass
+
+    return (instance_collection.public_ip_address, instance[0].instance_id)
 
 
 class DBControl(object):
