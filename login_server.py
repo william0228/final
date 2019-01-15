@@ -33,8 +33,9 @@ def Create_instance():
     instance[0].wait_until_running()
     waiter.wait(InstanceIds=[instance[0].instance_id])
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
-
-    return (instance_collection.public_ip_address, instance[0].instance_id)
+    for i in instance_collection:
+        return (i.public_ip_address, instance[0].instance_id)
+    pass
 
 
 class DBControl(object):
@@ -143,7 +144,7 @@ class DBControl(object):
                 server_ip = ""
 
                 res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
-                print (res3)
+                print (res3[0])
                 if (len(res3) == 0):
                     server_ip, instance_id = Create_instance()
                 else:
