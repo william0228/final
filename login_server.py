@@ -143,6 +143,7 @@ class DBControl(object):
                 server_ip = ""
 
                 res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
+                print (res3)
                 if (len(res3) == 0):
                     server_ip, instance_id = Create_instance()
                 else:
