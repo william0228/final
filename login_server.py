@@ -7,12 +7,15 @@ import uuid
 import time
 import stomp
 import boto3
+from peewee import *
 
 conn_mq = stomp.Connection()
 conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
 
 ec2 = boto3.resource('ec2', region_name='us-east-2')
+client = boto3.client('ec2')
+waiter = client.get_waiter('instance_status_ok')
 user_data = '''#!/bin/bash
 python3 /home/ubuntu/final/app_server.py 0.0.0.0 8888
 '''
@@ -24,9 +27,11 @@ def Create_instance():
         MinCount = 1,
         MaxCount = 1,
         InstanceType = 't2.micro',
+        KeyName='MyKeyPair',
         UserData = user_data
     )
     instance[0].wait_until_running()
+    waiter.wait(InstanceIds=[instance[0].instance_id])
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
     for i in instance_collection:
         return (i.public_ip_address, instance[0].instance_id)
