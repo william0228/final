@@ -27,7 +27,7 @@ def Create_instance():
         MinCount = 1,
         MaxCount = 1,
         InstanceType = 't2.micro',
-        KeyName='MyKey',
+        KeyName='Wang.pem.txt',
         UserData = user_data
     )
     instance[0].wait_until_running()
