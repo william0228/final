@@ -38,6 +38,7 @@ def Create_instance():
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
     print ("4")
     for i in instance_collection:
+        print (i.public_ip_address, instance[0].instance_id)
         return (i.public_ip_address, instance[0].instance_id)
     pass
 
