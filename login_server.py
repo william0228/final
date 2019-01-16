@@ -152,8 +152,10 @@ class DBControl(object):
                     print ("qq3")
                     server_ip = res3[0].server_ip
                     instance_id = res3[0].instance_id
+
                 print ("qq4")
-                res4 = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
+                res4 = Server_connect.create(Server_connect.user = t.owner, Server_connect.server_ip = server_ip, Server_connect.instance_id = instance_id)
+                print ("qq5")
                 if res4:
                     return {
                         'status': 0,
