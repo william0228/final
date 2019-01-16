@@ -142,15 +142,17 @@ class DBControl(object):
             else:
                 instance_id = ""
                 server_ip = ""
-
+                print ("qq1")
                 res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
                 # print ("qq")
                 if (len(res3) == 0):
+                    print ("qq2")
                     server_ip, instance_id = Create_instance()
                 else:
+                    print ("qq3")
                     server_ip = res3[0].server_ip
                     instance_id = res3[0].instance_id
-
+                print ("qq4")
                 res4 = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
                 if res4:
                     return {
