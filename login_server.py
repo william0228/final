@@ -22,7 +22,7 @@ python3 /home/ubuntu/final/app_server.py 0.0.0.0 8888
 
 def Create_instance():
     instance = ec2.create_instances(
-        # ImageId = 'ami-07ae4294c281789a6',
+        ImageId = 'ami-07ae4294c281789a6',
         SecurityGroupIds = ['launch-wizard-2'],
         MinCount = 1,
         MaxCount = 1,
@@ -144,7 +144,7 @@ class DBControl(object):
                 server_ip = ""
 
                 res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
-                print ("qq")
+                # print ("qq")
                 if (len(res3) == 0):
                     server_ip, instance_id = Create_instance()
                 else:
