@@ -27,7 +27,7 @@ def Create_instance():
         MinCount = 1,
         MaxCount = 1,
         InstanceType = 't2.micro',
-        # KeyName='Wang',
+        KeyName='Wang',
         UserData = user_data
     )
     print ("1")
