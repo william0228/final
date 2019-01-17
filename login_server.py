@@ -27,7 +27,7 @@ def Create_instance():
         MinCount = 1,
         MaxCount = 1,
         InstanceType = 't2.micro',
-        KeyName='Wang',
+        # KeyName='Wang',
         UserData = user_data
     )
     print ("1")
@@ -148,7 +148,7 @@ class DBControl(object):
                 instance_id = ""
                 server_ip = ""
                 print ("qq1")
-                res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
+                res3 = Server_connect.select(server_ip, instance_id).group_by(server_ip).having(fn.Count(user) < 10)
                 # print ("qq")
                 if (len(res3) == 0):
                     print ("qq2")
