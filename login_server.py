@@ -238,32 +238,31 @@ class DBControl(object):
                     return {
                         'status': 1,
                         'message': 'Already invited'
-                }
+                    }
                 elif invite2:
                     return {
                         'status': 1,
                         'message': '{} has invited you'.format(username)
-                }
-else:
-    Invitation.create(inviter=token.owner, invitee=friend)
-    return {
-        'status': 0,
-            'message': 'Success!'
-            }
+                    }
+                else:
+                    Invitation.create(inviter=token.owner, invitee=friend)
+                    return {
+                        'status': 0,
+                        'message': 'Success!'
+                    }
         else:
             return {
                 'status': 1,
                 'message': '{} does not exist'.format(username)
-        }
-    pass
+            }
 
-@__auth
+    @__auth
     def list_invite(self, token, *args):
         if args:
             return {
                 'status': 1,
                 'message': 'Usage: list-invite <user>'
-        }
+            }
         res = Invitation.select().where(Invitation.invitee == token.owner)
         invite = []
         for r in res:
@@ -271,9 +270,9 @@ else:
         return {
             'status': 0,
             'invite': invite
-    }
+        }
 
-@__auth
+    @__auth
     def accept_invite(self, token, username=None, *args):
         if not username or args:
             return {
@@ -288,15 +287,14 @@ else:
             return {
                 'status': 0,
                 'message': 'Success!'
-        }
+            }
         else:
             return {
                 'status': 1,
                 'message': '{} did not invite you'.format(username)
-        }
-                    pass
+            }
 
-@__auth
+    @__auth
     def list_friend(self, token, *args):
         if args:
             return {
@@ -313,9 +311,9 @@ else:
         return {
             'status': 0,
             'friend': res
-    }
+        }
 
-@__auth
+    @__auth
     def post(self, token, *args):
         if len(args) <= 0:
             return {
@@ -326,26 +324,26 @@ else:
         return {
             'status': 0,
             'message': 'Success!'
-    }
+        }
 
-@__auth
+    @__auth
     def receive_post(self, token, *args):
         if args:
             return {
                 'status': 1,
                 'message': 'Usage: receive-post <user>'
-        }
+            }
         res = Post.select().where(Post.user != token.owner).join(Friend, on=((Post.user == Friend.user) | (Post.user == Friend.friend))).where((Friend.user == token.owner) | (Friend.friend == token.owner))
         post = []
         for r in res:
             post.append({
-                        'id': r.user.username,
-                        'message': r.message
-                        })
+                'id': r.user.username,
+                'message': r.message
+            })
         return {
             'status': 0,
             'post': post
-}
+        }
     
     @__auth2
     def send(self, token, username=None, *args):
@@ -353,14 +351,14 @@ else:
             return {
                 'status': 'Fail-B',
                 'message': 'Usage: send <user> <friend> <message>'
-        }
+            }
         
         res = User.get_or_none(User.username == username)
         if not res:
             return {
                 'status': 'Fail-C',
                 'message': 'No such user exist'
-        }
+            }
         
         res1 = Friend.get_or_none((Friend.user == token.owner) & (Friend.friend == res))
         res2 = Friend.get_or_none((Friend.friend == token.owner) & (Friend.user == res))
@@ -368,20 +366,20 @@ else:
             return {
                 'status': 'Fail-D',
                 'message': '{} is not your friend'.format(username)
-        }
+            }
         
         res3 = Token.get_or_none(Token.owner == res)
         if not res3:
             return {
                 'status': 'Fail-E',
                 'message': '{} is not online'.format(username)
-        }
+            }
 
-message = "<<<" + str(token.owner.username) + "->" + str(username) + ": " +  str(' '.join(args)) + ">>>"
-conn_mq.send(body=message, destination="/queue/"+str(username))
-return {
-    'status': 'Success',
-        'message': 'Success!'
+        message = "<<<" + str(token.owner.username) + "->" + str(username) + ": " +  str(' '.join(args)) + ">>>"
+        conn_mq.send(body=message, destination="/queue/"+str(username))
+        return {
+            'status': 'Success',
+            'message': 'Success!'
         }
 
     @__auth2
@@ -390,30 +388,30 @@ return {
             return {
                 'status': 'Fail-B',
                 'message': 'Usage: create-group <user> <group>'
-        }
+                }
 
-res = Group.get_or_none(Group.group_name == group)
-if res:
-    return {
-        'status': 'Fail-C',
-            'message': '{} already exist'.format(group)
-        }
+        res = Group.get_or_none(Group.group_name == group)
+        if res:
+            return {
+                'status': 'Fail-C',
+                'message': '{} already exist'.format(group)
+            }
         
         res1 = Group.create(member = token.owner, group_name = group)
         return {
             'status': 'Success',
             'message': 'Success!',
             'user': token.owner.username
-    }
+        }
 
 
-@__auth2
+    @__auth2
     def list_group(self, token, *args):
         if args:
             return {
                 'status': 'Fail-B',
                 'message': 'Usage: list-group <user>'
-        }
+            }
         
         res = Group.select(Group.group_name).distinct()
         arr = []
@@ -421,10 +419,10 @@ if res:
         for i in res:
             arr.append(i.group_name)
                 
-                return {
+        return {
             'status': 'Success',
-                    'group' : arr
-}
+            'group' : arr
+        }
     
     @__auth2
     def list_joined(self, token, *args):
@@ -440,39 +438,39 @@ if res:
         for i in res:
             arr.append(i.group_name)
         
-            return {
+        return {
             'status': 'Success',
-                'group' : arr
-}
-    
+            'group' : arr
+        }
+
     @__auth2
     def join_group(self, token, group=None, *args):
         if not group or args:
             return {
                 'status': 'Fail-B',
                 'message': 'Usage: join-group <user> <group>'
-        }
+            }
         
         res = Group.get_or_none(Group.group_name == group)
         if not res:
             return {
                 'status': 'Fail-C',
                 'message': '{} does not exist'.format(group)
-        }
+            }
         
         res1 = Group.get_or_none((Group.group_name == group) & (Group.member == token.owner))
         if res1:
             return {
                 'status': 'Fail-D',
                 'message': 'Already a member of {}'.format(group)
-        }
+            }
         
         res2 = Group.create(member = token.owner, group_name = group)
         return {
             'status': 'Success',
             'message': 'Success!',
             'user': token.owner.username
-}
+        }
     
     @__auth2
     def send_group(self, token, group=None, *args):
@@ -480,21 +478,21 @@ if res:
             return {
                 'status': 'Fail-B',
                 'message': 'Usage: send-group <user> <group> <message>'
-        }
+            }
         
         res = Group.get_or_none(Group.group_name == group)
         if not res:
             return {
                 'status': 'Fail-C',
                 'message': 'No such group exist'
-        }
+            }
         
         res1 = Group.get_or_none((Group.group_name == group) & (Group.member == token.owner))
         if not res1:
             return {
                 'status': 'Fail-D',
                 'message': 'You are not the member of {}'.format(group)
-        }
+            }
 
         message = "<<<" + str(token.owner.username) + "->" + "GROUP<" + str(group) + ">: " +  str(' '.join(args)) + ">>>"
         conn_mq.send(body=message, destination="/topic/"+str(group))
@@ -502,7 +500,7 @@ if res:
         return {
             'status': 'Success',
             'message': 'Success!'
-}
+        }
 
 
 class Server(object):
