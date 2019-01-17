@@ -56,6 +56,18 @@ class DBControl(object):
             }
         return validate_token
 
+    def __auth2(func):
+        def validate_token2(self, token=None, *args):
+            if token:
+                t = Token.get_or_none(Token.token == token)
+                if t:
+                    return func(self, t, *args)
+            return {
+                'status': 'Fail-A',
+                'message': 'Not login yet'
+        }
+        return validate_token2
+    
     def register(self, username=None, password=None, *args):
         if not username or not password or args:
             return {
@@ -198,6 +210,299 @@ class DBControl(object):
             'out_group': arr,
             'user': token.owner.username
         }
+    @__auth
+    def invite(self, token, username=None, *args):
+        if not username or args:
+            return {
+                'status': 1,
+                'message': 'Usage: invite <user> <id>'
+        }
+        if username == token.owner.username:
+            return {
+                'status': 1,
+                'message': 'You cannot invite yourself'
+        }
+        friend = User.get_or_none(User.username == username)
+        if friend:
+            res1 = Friend.get_or_none((Friend.user == token.owner) & (Friend.friend == friend))
+            res2 = Friend.get_or_none((Friend.friend == token.owner) & (Friend.user == friend))
+            if res1 or res2:
+                return {
+                    'status': 1,
+                    'message': '{} is already your friend'.format(username)
+            }
+            else:
+                invite1 = Invitation.get_or_none((Invitation.inviter == token.owner) & (Invitation.invitee == friend))
+                invite2 = Invitation.get_or_none((Invitation.inviter == friend) & (Invitation.invitee == token.owner))
+                if invite1:
+                    return {
+                        'status': 1,
+                        'message': 'Already invited'
+                }
+                elif invite2:
+                    return {
+                        'status': 1,
+                        'message': '{} has invited you'.format(username)
+                }
+else:
+    Invitation.create(inviter=token.owner, invitee=friend)
+    return {
+        'status': 0,
+            'message': 'Success!'
+            }
+        else:
+            return {
+                'status': 1,
+                'message': '{} does not exist'.format(username)
+        }
+    pass
+
+@__auth
+    def list_invite(self, token, *args):
+        if args:
+            return {
+                'status': 1,
+                'message': 'Usage: list-invite <user>'
+        }
+        res = Invitation.select().where(Invitation.invitee == token.owner)
+        invite = []
+        for r in res:
+            invite.append(r.inviter.username)
+        return {
+            'status': 0,
+            'invite': invite
+    }
+
+@__auth
+    def accept_invite(self, token, username=None, *args):
+        if not username or args:
+            return {
+                'status': 1,
+                'message': 'Usage: accept-invite <user> <id>'
+        }
+        inviter = User.get_or_none(User.username == username)
+        invite = Invitation.get_or_none((Invitation.inviter == inviter) & (Invitation.invitee == token.owner))
+        if invite:
+            Friend.create(user=token.owner, friend=inviter)
+            invite.delete_instance()
+            return {
+                'status': 0,
+                'message': 'Success!'
+        }
+        else:
+            return {
+                'status': 1,
+                'message': '{} did not invite you'.format(username)
+        }
+                    pass
+
+@__auth
+    def list_friend(self, token, *args):
+        if args:
+            return {
+                'status': 1,
+                'message': 'Usage: list-friend <user>'
+        }
+        friends = Friend.select().where((Friend.user == token.owner) | (Friend.friend == token.owner))
+        res = []
+        for f in friends:
+            if f.user == token.owner:
+                res.append(f.friend.username)
+            else:
+                res.append(f.user.username)
+        return {
+            'status': 0,
+            'friend': res
+    }
+
+@__auth
+    def post(self, token, *args):
+        if len(args) <= 0:
+            return {
+                'status': 1,
+                'message': 'Usage: post <user> <message>'
+        }
+        Post.create(user=token.owner, message=' '.join(args))
+        return {
+            'status': 0,
+            'message': 'Success!'
+    }
+
+@__auth
+    def receive_post(self, token, *args):
+        if args:
+            return {
+                'status': 1,
+                'message': 'Usage: receive-post <user>'
+        }
+        res = Post.select().where(Post.user != token.owner).join(Friend, on=((Post.user == Friend.user) | (Post.user == Friend.friend))).where((Friend.user == token.owner) | (Friend.friend == token.owner))
+        post = []
+        for r in res:
+            post.append({
+                        'id': r.user.username,
+                        'message': r.message
+                        })
+        return {
+            'status': 0,
+            'post': post
+}
+    
+    @__auth2
+    def send(self, token, username=None, *args):
+        if not username or len(args) <= 0:
+            return {
+                'status': 'Fail-B',
+                'message': 'Usage: send <user> <friend> <message>'
+        }
+        
+        res = User.get_or_none(User.username == username)
+        if not res:
+            return {
+                'status': 'Fail-C',
+                'message': 'No such user exist'
+        }
+        
+        res1 = Friend.get_or_none((Friend.user == token.owner) & (Friend.friend == res))
+        res2 = Friend.get_or_none((Friend.friend == token.owner) & (Friend.user == res))
+        if not (res1 or res2):
+            return {
+                'status': 'Fail-D',
+                'message': '{} is not your friend'.format(username)
+        }
+        
+        res3 = Token.get_or_none(Token.owner == res)
+        if not res3:
+            return {
+                'status': 'Fail-E',
+                'message': '{} is not online'.format(username)
+        }
+
+message = "<<<" + str(token.owner.username) + "->" + str(username) + ": " +  str(' '.join(args)) + ">>>"
+conn_mq.send(body=message, destination="/queue/"+str(username))
+return {
+    'status': 'Success',
+        'message': 'Success!'
+        }
+
+    @__auth2
+    def create_group(self, token, group=None, *args):
+        if not group or args:
+            return {
+                'status': 'Fail-B',
+                'message': 'Usage: create-group <user> <group>'
+        }
+
+res = Group.get_or_none(Group.group_name == group)
+if res:
+    return {
+        'status': 'Fail-C',
+            'message': '{} already exist'.format(group)
+        }
+        
+        res1 = Group.create(member = token.owner, group_name = group)
+        return {
+            'status': 'Success',
+            'message': 'Success!',
+            'user': token.owner.username
+    }
+
+
+@__auth2
+    def list_group(self, token, *args):
+        if args:
+            return {
+                'status': 'Fail-B',
+                'message': 'Usage: list-group <user>'
+        }
+        
+        res = Group.select(Group.group_name).distinct()
+        arr = []
+        
+        for i in res:
+            arr.append(i.group_name)
+                
+                return {
+            'status': 'Success',
+                    'group' : arr
+}
+    
+    @__auth2
+    def list_joined(self, token, *args):
+        if args:
+            return {
+                'status': 'Fail-B',
+                'message': 'Usage: list-joined <user>'
+            }
+    
+        res = Group.select().where(Group.member == token.owner)
+        arr = []
+        
+        for i in res:
+            arr.append(i.group_name)
+        
+            return {
+            'status': 'Success',
+                'group' : arr
+}
+    
+    @__auth2
+    def join_group(self, token, group=None, *args):
+        if not group or args:
+            return {
+                'status': 'Fail-B',
+                'message': 'Usage: join-group <user> <group>'
+        }
+        
+        res = Group.get_or_none(Group.group_name == group)
+        if not res:
+            return {
+                'status': 'Fail-C',
+                'message': '{} does not exist'.format(group)
+        }
+        
+        res1 = Group.get_or_none((Group.group_name == group) & (Group.member == token.owner))
+        if res1:
+            return {
+                'status': 'Fail-D',
+                'message': 'Already a member of {}'.format(group)
+        }
+        
+        res2 = Group.create(member = token.owner, group_name = group)
+        return {
+            'status': 'Success',
+            'message': 'Success!',
+            'user': token.owner.username
+}
+    
+    @__auth2
+    def send_group(self, token, group=None, *args):
+        if not group or len(args) <= 0:
+            return {
+                'status': 'Fail-B',
+                'message': 'Usage: send-group <user> <group> <message>'
+        }
+        
+        res = Group.get_or_none(Group.group_name == group)
+        if not res:
+            return {
+                'status': 'Fail-C',
+                'message': 'No such group exist'
+        }
+        
+        res1 = Group.get_or_none((Group.group_name == group) & (Group.member == token.owner))
+        if not res1:
+            return {
+                'status': 'Fail-D',
+                'message': 'You are not the member of {}'.format(group)
+        }
+
+        message = "<<<" + str(token.owner.username) + "->" + "GROUP<" + str(group) + ">: " +  str(' '.join(args)) + ">>>"
+        conn_mq.send(body=message, destination="/topic/"+str(group))
+
+        return {
+            'status': 'Success',
+            'message': 'Success!'
+}
 
 
 class Server(object):

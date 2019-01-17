@@ -35,18 +35,19 @@ class Client(object):
     def run(self):
         while True:
             cmd = sys.stdin.readline()
-            cmd = str(cmd)
             if cmd == 'exit' + os.linesep:
                 return
             if cmd != os.linesep:
                 try:
                     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                        
+                        """
                         command = cmd.split()
+                        
                         # which server we need to go to
                         # with command register/login/logout/delete in login_server
                         if len(command) > 2:
-                            if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete") or (self.cookie[command[1]] == "")):
+                            if((command[0] == "register") or (command[0] == "login") or (command[0] == "logout") or (command[0] == "delete") or (self.cookie[command[1]] == "") or (command[1] not in self.cookie)):
+                                print ("qw")
                                 s.connect((self.ip, self.port))
                             # with other command in app_server
                             else :
@@ -58,6 +59,21 @@ class Client(object):
                         s.send(cmd.encode())
                         resp = s.recv(4096).decode()
                         self.__show_result(json.loads(resp), cmd)
+                        
+                        """
+                        task = cmd.split()
+                        if(len(task) == 1):
+                            s.connect((self.ip, self.port))
+                        elif((task[0] == "login" or task[0] == "logout" or task[0] == "register" or task[0] == "delete" ) or (task[1] not in self.cookie) or (self.cookie[task[1]] == "")):
+                            s.connect((self.ip, self.port))
+                        else :
+                            s.connect((self.server[task[1]], 8000))
+                        #self.__assign_server()
+                        cmd = self.__attach_token(cmd)
+                        s.send(cmd.encode())
+                        resp = s.recv(4096).decode()
+                        self.__show_result(json.loads(resp), cmd)
+                        
                 except Exception as e:
                     print(e, file=sys.stderr)
                     print ("qq")
@@ -106,10 +122,11 @@ class Client(object):
                 if command[1] in self.server:
                     if resp['server'] != self.server[command[1]]:
                         self.server[command[1]] = resp['server']
-                    else:
-                        self.server[command[1]] = resp['server']
+                else:
+                    self.server[command[1]] = resp['server']
 
             elif resp['status'] == 0 and (command[0] == 'delete' or command[0] == 'logout'):
+                self.server[command[1]] = ""
                 self.conn.unsubscribe(destination="/queue/"+str(resp['user']), id=command[1])
                 for i in resp['out_group']:
                     # print("out" + " " + command[1] + " " + i)
