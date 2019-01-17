@@ -9,7 +9,7 @@ import stomp
 import boto3
 from peewee import *
 
-conn_mq = stomp.Connection()
+conn_mq = stomp.Connection([(18.220.109.110, 61613)])
 conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
 
