@@ -9,7 +9,7 @@ import stomp
 import boto3
 from peewee import *
 
-conn_mq = stomp.Connection([('18.220.109.110', 61613)])
+conn_mq = stomp.Connection([('18.221.0.251', 61613)])
 conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
 
@@ -30,13 +30,13 @@ def Create_instance():
         KeyName='Wang',
         UserData = user_data
     )
-    #print ("1")
+    print ("1")
     instance[0].wait_until_running()
-    #print ("2")
+    print ("2")
     waiter.wait(InstanceIds=[instance[0].instance_id])
-    #print ("3")
+    print ("3")
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
-    #print ("4")
+    print ("4")
     for i in instance_collection:
         print (i.public_ip_address, instance[0].instance_id)
         return (i.public_ip_address, instance[0].instance_id)
