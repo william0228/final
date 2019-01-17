@@ -9,7 +9,7 @@ import stomp
 
 conn_mq = stomp.Connection([('18.223.235.14', 61613)])
 conn_mq.start()
-conn_mq.connect('admin', 'password', wait=True)
+conn_mq.connect('admin', 'admin', wait=True)
 
 class DBControl(object):
     def __auth(func):
