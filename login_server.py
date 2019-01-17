@@ -17,7 +17,7 @@ ec2 = boto3.resource('ec2',region_name='us-east-2')
 client = boto3.client('ec2')
 waiter = client.get_waiter('instance_status_ok')
 user_data = '''#!/bin/bash
-python3 /home/ubuntu/final/app_server.py 0.0.0.0 8000
+python3 /home/ubuntu/final/server.py 0.0.0.0 8000
 '''
 
 def Create_instance():
@@ -38,7 +38,7 @@ def Create_instance():
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
     #print ("4")
     for i in instance_collection:
-        print (i.public_ip_address, instance[0].instance_id)
+        # print (i.public_ip_address, instance[0].instance_id)
         return (i.public_ip_address, instance[0].instance_id)
     pass
 

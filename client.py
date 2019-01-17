@@ -50,7 +50,7 @@ class Client(object):
                                 s.connect((self.ip, self.port))
                             # with other command in app_server
                             else :
-                                s.connect((self.ip, 8000))
+                                s.connect((self.server[command[1]], 8000))
                         else:
                             s.connect((self.ip, self.port))
                         
