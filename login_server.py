@@ -22,7 +22,7 @@ python3 /home/ubuntu/final/app_server.py 0.0.0.0 8000
 
 def Create_instance():
     instance = ec2.create_instances(
-        ImageId='ami-0a4b9554a585bcb6a',
+        ImageId='ami-038d155352eb94cc3',
         InstanceType='t2.micro',
         SecurityGroupIds=['launch-wizard-2'],
         MinCount=1,
