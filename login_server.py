@@ -11,7 +11,7 @@ from peewee import *
 
 conn_mq = stomp.Connection([('18.223.149.40', 61613)])
 conn_mq.start()
-conn_mq.connect('admin', 'password', wait=True)
+conn_mq.connect('admin', 'admin', wait=True)
 
 ec2 = boto3.resource('ec2',region_name='us-east-2')
 client = boto3.client('ec2')
