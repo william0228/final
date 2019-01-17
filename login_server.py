@@ -17,7 +17,7 @@ ec2 = boto3.resource('ec2',region_name='us-east-2')
 client = boto3.client('ec2')
 waiter = client.get_waiter('instance_status_ok')
 user_data = '''#!/bin/bash
-python3 /home/ubuntu/final/app_server.py 0.0.0.0 8888
+python3 /home/ubuntu/final/app_server.py 0.0.0.0 8000
 '''
 
 def Create_instance():
@@ -30,13 +30,13 @@ def Create_instance():
         KeyName='Wang',
         UserData = user_data
     )
-    print ("1")
+    #print ("1")
     instance[0].wait_until_running()
-    print ("2")
+    #print ("2")
     waiter.wait(InstanceIds=[instance[0].instance_id])
-    print ("3")
+    #print ("3")
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
-    print ("4")
+    #print ("4")
     for i in instance_collection:
         print (i.public_ip_address, instance[0].instance_id)
         return (i.public_ip_address, instance[0].instance_id)
@@ -147,20 +147,20 @@ class DBControl(object):
             else:
                 instance_id = ""
                 server_ip = ""
-                print ("qq1")
+                #print ("qq1")
                 res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
                 # print ("qq")
                 if (len(res3) == 0):
-                    print ("qq2")
+                    #print ("qq2")
                     server_ip, instance_id = Create_instance()
                 else:
-                    print ("qq3")
+                    #print ("qq3")
                     server_ip = res3[0].server_ip
                     instance_id = res3[0].instance_id
 
-                print ("qq4")
+                #print ("qq4")
                 res4 = Server_connect.create(user = t.owner, server_ip = server_ip, instance_id = instance_id)
-                print ("qq5")
+                #print ("qq5")
                 if res4:
                     return {
                         'status': 0,

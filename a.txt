@@ -1,28 +1,171 @@
-Usage: register <username> <password>
 Success!
-DeMo_user1 is already used
 Success!
-DeMo_user2 is already used
 Success!
-DeMo_user3 is already used
 Success!
-DeMo_user4 is already used
 Success!
-DeMo_user5 is already used
 Success!
-DeMo_user6 is already used
 Success!
-DeMo_user7 is already used
 Success!
-DeMo_user8 is already used
 Success!
-DeMo_user9 is already used
 Success!
-DeMo_user10 is already used
+Not login yet
+Not login yet
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+Not login yet
+Not login yet
+Usage: accept-invite <user> <id>
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+No invitations
+Not login yet
+Not login yet
+No friends
 Success!
-DeMo_user11 is already used
+No friends
 Success!
-DeMo_user12 is already used
-Usage: register <username> <password>
-Usage: register <username> <password>
-Usage: register <username> <password>
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Success!
+No friends
+Not login yet
+Not login yet
+Usage: post <user> <message>
+Not login yet
+Not login yet
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Success!
+No posts
+Not login yet
+Not login yet
+Unknown command receive-p
+Unknown command list-i
+Unknown command list-f
+Unknown command pos
+Unknown command accept
+Unknown command inv
+Unknown command logo
+Unknown command del
+Unknown command exi
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
+Bye!
