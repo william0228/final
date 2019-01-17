@@ -13,7 +13,7 @@ conn_mq = stomp.Connection([('18.220.109.110', 61613)])
 conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
 
-ec2 = boto3.resource('ec2', region_name='us-east-2')
+ec2 = boto3.resource('ec2',region_name='us-east-2')
 client = boto3.client('ec2')
 waiter = client.get_waiter('instance_status_ok')
 user_data = '''#!/bin/bash
@@ -22,21 +22,21 @@ python3 /home/ubuntu/final/app_server.py 0.0.0.0 8888
 
 def Create_instance():
     instance = ec2.create_instances(
-        ImageId = 'ami-07ae4294c281789a6',
-        SecurityGroupIds = ['launch-wizard-2'],
-        MinCount = 1,
-        MaxCount = 1,
-        InstanceType = 't2.micro',
-        # KeyName='Wang',
+        ImageId='ami-07ae4294c281789a6',
+        InstanceType='t2.micro',
+        SecurityGroupIds=['launch-wizard-2'],
+        MinCount=1,
+        MaxCount=1,
+        KeyName='Wang',
         UserData = user_data
     )
-    print ("1")
+    #print ("1")
     instance[0].wait_until_running()
-    print ("2")
+    #print ("2")
     waiter.wait(InstanceIds=[instance[0].instance_id])
-    print ("3")
+    #print ("3")
     instance_collection = ec2.instances.filter(InstanceIds=[instance[0].instance_id])
-    print ("4")
+    #print ("4")
     for i in instance_collection:
         print (i.public_ip_address, instance[0].instance_id)
         return (i.public_ip_address, instance[0].instance_id)
@@ -148,7 +148,7 @@ class DBControl(object):
                 instance_id = ""
                 server_ip = ""
                 print ("qq1")
-                res3 = Server_connect.select(server_ip, instance_id).group_by(server_ip).having(fn.Count(Server_connect.user) < 10)
+                res3 = Server_connect.select(Server_connect.server_ip, Server_connect.instance_id).group_by(Server_connect.server_ip).having(fn.Count(Server_connect.user) < 10)
                 # print ("qq")
                 if (len(res3) == 0):
                     print ("qq2")
