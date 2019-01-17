@@ -168,7 +168,7 @@ class DBControl(object):
                         'message': 'Success!',
                         'login_group': arr,
                         'user': username,
-                        'server': res2.server_ip
+                        'server': res4.server_ip
                     }
                 else:
                     return {
