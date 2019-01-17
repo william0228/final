@@ -23,7 +23,7 @@ class Client(object):
                 raise Exception('Port value should between 1~65535')
             self.cookie = {}
             self.server = {}
-            self.conn = stomp.Connection([('18.223.235.14', 61613)])
+            self.conn = stomp.Connection([('18.223.149.40', 61613)])
             self.conn.set_listener('', MyListener())
             self.conn.start()
             self.conn.connect('admin', 'password', wait=True)

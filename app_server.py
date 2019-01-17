@@ -7,7 +7,7 @@ import uuid
 import time
 import stomp
 
-conn_mq = stomp.Connection([('18.223.235.14', 61613)])
+conn_mq = stomp.Connection([('18.223.149.40', 61613)])
 conn_mq.start()
 conn_mq.connect('admin', 'admin', wait=True)
 

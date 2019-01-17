@@ -9,7 +9,7 @@ import stomp
 import boto3
 from peewee import *
 
-conn_mq = stomp.Connection([('18.223.235.14', 61613)])
+conn_mq = stomp.Connection([('18.223.149.40', 61613)])
 conn_mq.start()
 conn_mq.connect('admin', 'password', wait=True)
 
@@ -22,7 +22,7 @@ python3 /home/ubuntu/final/app_server.py 0.0.0.0 8000
 
 def Create_instance():
     instance = ec2.create_instances(
-        ImageId='ami-07ae4294c281789a6',
+        ImageId='ami-0a4b9554a585bcb6a',
         InstanceType='t2.micro',
         SecurityGroupIds=['launch-wizard-2'],
         MinCount=1,
