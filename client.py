@@ -60,18 +60,19 @@ class Client(object):
                         self.__show_result(json.loads(resp), cmd)
                 except Exception as e:
                     print(e, file=sys.stderr)
+                    print ("qq")
 
     def __show_result(self, resp, cmd=None):
         if 'message' in resp:
             print(resp['message'])
-
+        
         if 'invite' in resp:
             if len(resp['invite']) > 0:
                 for l in resp['invite']:
                     print(l)
             else:
                 print('No invitations')
-
+        
         if 'friend' in resp:
             if len(resp['friend']) > 0:
                 for l in resp['friend']:
